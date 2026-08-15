@@ -24,7 +24,7 @@ forwarded untouched, so new Vertex features work without changing this code.
 
 ## Build
 
-Requires Rust 1.75 or newer.
+Requires Rust 1.97 or newer.
 
 ```bash
 cargo build --release

@@ -2,7 +2,7 @@
 name = "gateway-for-vertex-ai"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.75"
+rust-version = "1.97"
 authors = ["Huy Nguyen Nhu"]
 description = "OpenAI-compatible gateway for Vertex AI: keeps Google Cloud credentials, refreshes tokens, preserves Gemini thought signatures"
 repository = "https://github.com/YOUR_USERNAME/gateway-for-vertex-ai"
