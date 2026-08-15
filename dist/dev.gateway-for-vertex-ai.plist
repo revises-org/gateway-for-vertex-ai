@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  macOS: copy to ~/Library/LaunchAgents/dev.gateway-for-vertex-ai.plist
+  Replace __HOME__ with your real home directory (e.g. /Users/huy), then:
+
+      chmod 600 ~/Library/LaunchAgents/dev.gateway-for-vertex-ai.plist
+      launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/dev.gateway-for-vertex-ai.plist
+      launchctl kickstart -p gui/$(id -u)/dev.gateway-for-vertex-ai
+
+  Remove:  launchctl bootout gui/$(id -u)/dev.gateway-for-vertex-ai
+  Reload:  launchctl kickstart -k gui/$(id -u)/dev.gateway-for-vertex-ai
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>dev.gateway-for-vertex-ai</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>__HOME__/.local/bin/gateway-for-vertex-ai</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <!-- REQUIRED: launchd does not inherit HOME from your shell, and the
+             credential lookup needs it to find
+             ~/.config/gcloud/application_default_credentials.json -->
+        <key>HOME</key>
+        <string>__HOME__</string>
+
+        <key>GCP_PROJECT_ID</key>
+        <string>my-project</string>
+        <key>GCP_LOCATION</key>
+        <string>global</string>
+        <key>BIND_ADDR</key>
+        <string>127.0.0.1:8787</string>
+        <key>GATEWAY_API_KEY</key>
+        <string>__REPLACE_WITH_YOUR_KEY__</string>
+        <key>RUST_LOG</key>
+        <string>gateway_for_vertex_ai=info</string>
+
+        <!-- Use a service account instead of ADC (more stable for a service):
+        <key>GOOGLE_APPLICATION_CREDENTIALS</key>
+        <string>__HOME__/.config/gateway-for-vertex-ai/sa.json</string>
+        -->
+    </dict>
+
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>__HOME__/Library/Logs/gateway-for-vertex-ai.log</string>
+    <key>StandardErrorPath</key>
+    <string>__HOME__/Library/Logs/gateway-for-vertex-ai.log</string>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+</dict>
+</plist>

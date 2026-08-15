@@ -1,0 +1,45 @@
+# Linux: copy to ~/.config/systemd/user/gateway-for-vertex-ai.service
+#
+#   mkdir -p ~/.config/gateway-for-vertex-ai
+#   cp env.example ~/.config/gateway-for-vertex-ai/env
+#   chmod 600 ~/.config/gateway-for-vertex-ai/env
+#   $EDITOR ~/.config/gateway-for-vertex-ai/env
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now gateway-for-vertex-ai
+#
+# Logs:    journalctl --user -u gateway-for-vertex-ai -f
+# Reload:  systemctl --user restart gateway-for-vertex-ai
+#
+# To keep it running when you are not logged in:
+#   loginctl enable-linger $USER
+
+[Unit]
+Description=OpenAI-compatible gateway for Vertex AI
+Documentation=https://github.com/YOUR_USERNAME/gateway-for-vertex-ai
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/gateway-for-vertex-ai
+EnvironmentFile=%h/.config/gateway-for-vertex-ai/env
+Environment=RUST_LOG=gateway_for_vertex_ai=info
+
+Restart=always
+RestartSec=2
+# Do not spin on restart when credentials are wrong
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+# The gateway only needs to read credentials and open a loopback socket
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+MemoryMax=256M
+
+[Install]
+WantedBy=default.target

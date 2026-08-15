@@ -1,0 +1,26 @@
+# Rust
+/target
+**/*.rs.bk
+
+# ---------------------------------------------------------------------------
+# CREDENTIALS — the most important part of this file.
+# This project exists to hold Google Cloud credentials. Committing one means
+# revoking the key: deleting the commit afterwards does NOT remove it from the
+# history of anyone who already cloned.
+# ---------------------------------------------------------------------------
+*.json.key
+sa.json
+service-account*.json
+*-credentials.json
+application_default_credentials.json
+.env
+.env.*
+!.env.example
+.envrc
+env
+!dist/env.example
+
+# OS / editor
+.DS_Store
+.idea/
+*.swp
