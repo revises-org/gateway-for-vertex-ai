@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  gateway:
+    build: .
+    ports:
+      - "8787:8787"
+    environment:
+      - GATEWAY_API_KEY=my-secret-key-123
+      # - GOOGLE_APPLICATION_CREDENTIALS=/app/gcp-sa.json
+    # volumes:
+      # - ./path/to/your/service-account.json:/app/gcp-sa.json:ro
