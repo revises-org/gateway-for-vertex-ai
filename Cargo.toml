@@ -1,16 +1,22 @@
 [package]
 name = "gateway-for-vertex-ai"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.97"
 authors = ["Huy Nguyen Nhu"]
 description = "OpenAI-compatible gateway for Vertex AI: keeps Google Cloud credentials, refreshes tokens, preserves Gemini thought signatures"
-repository = "https://github.com/YOUR_USERNAME/gateway-for-vertex-ai"
+repository = "https://github.com/revises-org/gateway-for-vertex-ai"
 license = "Apache-2.0"
 readme = "README.md"
 keywords = ["vertex-ai", "gemini", "openai", "gateway", "proxy"]
 categories = ["command-line-utilities", "web-programming::http-server"]
-exclude = ["/.github", "/dist"]
+exclude = [
+    "/.github",
+    "/dist",
+    "Dockerfile",
+    ".dockerignore",
+    "docker-compose.yml"
+]
 
 [dependencies]
 anyhow = "1"
